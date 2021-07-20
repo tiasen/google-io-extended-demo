@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Root Config</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js"></script>
+  <meta name="importmap-type" content="systemjs-importmap" />
+  <!-- <script type="systemjs-importmap">
+    {
+      "imports": {
+        "react": "https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js",
+        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js",
+        "@tiansen-me/root-config": "/tiansen-me-root-config.js",
+        "@tiansen-me/vue": "/vue/js/app.5b3cf3a2.js",
+        "@tiansen-me/navigation": "/tiansen-me-navigation.js",
+        "@tiansen-me/react": "/react/tiansen-me-react.js",
+        "@tiansen-me/angular": "/angular/main.js"
+
+      }
+    }
+  </script> -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script">
+
+  <!-- Add your organization's prod import map URL to this script's src  -->
+  <script type="systemjs-importmap" src="/importmap.json"></script>
+
+  <% if (isLocal) { %>
+    <script type="systemjs-importmap">
+    {
+      "imports": {
+        "@single-spa/welcome": "https://unpkg.com/single-spa-welcome/dist/single-spa-welcome.js",
+        "@tiansen-me/root-config": "//localhost:9000/tiansen-me-root-config.js",
+        "@tiansen-me/vue": "http://localhost:8082/js/app.js",
+        "@tiansen-me/navigation": "http://localhost:8081/tiansen-me-navigation.js",
+        "@tiansen-me/react": "http://localhost:8083/tiansen-me-react.js",
+        "@tiansen-me/angular": "http://localhost:4200/main.js"
+      }
+    }
+  </script>
+    <% } %>
+
+      <!--
+    If you need to support Angular applications, uncomment the script tag below to ensure only one instance of ZoneJS is loaded
+    Learn more about why at https://single-spa.js.org/docs/ecosystem-angular/#zonejs
+  -->
+      <script src="https://cdn.jsdelivr.net/npm/zone.js@0.11.3/dist/zone.min.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@2.2.0/dist/import-map-overrides.js"></script>
+      <% if (isLocal) { %>
+        <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.js"></script>
+        <% } else { %>
+          <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
+          <% } %>
+
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <script>
+    System.import('@tiansen-me/root-config');
+  </script>
+  <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+</body>
+
+</html>
